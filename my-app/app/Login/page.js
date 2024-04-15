@@ -33,6 +33,9 @@ const Login = () => {
                     setMessage('Your account is not verified. A verification email has been sent. Please verify your email.');
                   } 
             }
+            else if(response.status === 404){
+                setMessage('User does not exist');
+            }
         } catch (error) {
             console.error('Error logging in:', error);
         }
