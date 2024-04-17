@@ -25,7 +25,7 @@ const RazorpayButton = () => {
 
     return (
         <form id="razorpay-form">
-            {/* Other form elements can be added here */}
+        
         </form>
     );
 };

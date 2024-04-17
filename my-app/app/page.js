@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ElasticCarousel from '@/components/Carousel';
+import Partners from '@/components/partners';
 
 export default function Home() {
   const [section, setSection] = useState('home');
@@ -28,7 +29,7 @@ export default function Home() {
           {section === "about" || section==="home" && <h1>About Us</h1>}
         </div>
         <div id="partners" className='w-screen  h-screen'>
-          {section ==="partners" &&<ElasticCarousel />}
+          {section ==="partners" &&<Partners />}
         </div>
         <div id="explore" className='w-screen  h-screen'>
           {section==='explore' &&<h1>Explore</h1>}

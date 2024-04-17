@@ -1,25 +1,52 @@
 "use client"
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
 const FormContext = createContext();
 
-export const useFormContext = () => useContext(FormContext);
-
 export const FormProvider = ({ children }) => {
-  const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({
+        personalDetails: {
+            fname: '',
+            lname: '',
+            email: '',
+            dOB: '',
+            country: '',
+            state: '',
+            city: '',
+            phone: '',
+            rePhone: '',
+            altPhone: '',
+        },
+        fileUploads: {
+            photo: '',
+            signature: '',
+            idProof: '',
+        },
+        fileNames:{
+            photo: '',
+            signature: '',
+            idProof: '',
+        },
+        files:{
+            photo: null,
+            signature:null,
+            idProof: null,
+        },
+        centerSelection: {
+            examCenter: '',
+            examCity:'',
+        },
+        payment: {
+            paymentMethod: '',
+        },
+    });
 
-  const updateFormData = (newData) => {
-    setFormData({ ...formData, ...newData });
-  };
-
-  const clearFormData = () => {
-    setFormData({});
-  };
-
-  return (
-    <FormContext.Provider value={{ formData, updateFormData, clearFormData }}>
-      {children}
-    </FormContext.Provider>
-  );
+    return (
+        <FormContext.Provider value={{ formData, setFormData }}>
+            {children}
+        </FormContext.Provider>
+    );
 };
+
+export const useFormContext = () => useContext(FormContext);

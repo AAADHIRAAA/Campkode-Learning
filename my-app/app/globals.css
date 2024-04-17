@@ -128,3 +128,22 @@ h4{
 .rec.rec-dot {
   display: none; /* Hide navigation dots */
 }
+
+
+.preview-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+
+.file-upload {
+  display: flex;
+  flex-direction: column;
+}
+
+.file-upload p {
+  margin-bottom: 5px;
+}
+
