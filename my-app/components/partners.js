@@ -18,6 +18,10 @@ export default function Partners(){
     {image:'https://th.bing.com/th/id/OIP.TeAPpO3dp1tYfex-FZ-nBQHaHa?w=145&h=180&c=7&r=0&o=5&pid=1.7',name:'Sairam',alt:'Logo'},
     {image:'https://th.bing.com/th/id/OIP.TeAPpO3dp1tYfex-FZ-nBQHaHa?w=145&h=180&c=7&r=0&o=5&pid=1.7',name:'Sairam1',alt:'Logo'},
     {image:'https://th.bing.com/th/id/OIP.TeAPpO3dp1tYfex-FZ-nBQHaHa?w=145&h=180&c=7&r=0&o=5&pid=1.7',name:'Sairam',alt:'Logo'},
+    {image:'https://th.bing.com/th/id/OIP.TeAPpO3dp1tYfex-FZ-nBQHaHa?w=145&h=180&c=7&r=0&o=5&pid=1.7',name:'Sairam1',alt:'Logo'},
+    {image:'https://th.bing.com/th/id/OIP.TeAPpO3dp1tYfex-FZ-nBQHaHa?w=145&h=180&c=7&r=0&o=5&pid=1.7',name:'Sairam',alt:'Logo'},
+    {image:'https://th.bing.com/th/id/OIP.TeAPpO3dp1tYfex-FZ-nBQHaHa?w=145&h=180&c=7&r=0&o=5&pid=1.7',name:'Sairam1',alt:'Logo'},
+    {image:'https://th.bing.com/th/id/OIP.TeAPpO3dp1tYfex-FZ-nBQHaHa?w=145&h=180&c=7&r=0&o=5&pid=1.7',name:'Sairam',alt:'Logo'},
     {image:'https://th.bing.com/th/id/OIP.TeAPpO3dp1tYfex-FZ-nBQHaHa?w=145&h=180&c=7&r=0&o=5&pid=1.7',name:'Sairam1',alt:'Logo'}
   ]
     const[images,setImages] = useState([]);
@@ -29,10 +33,10 @@ export default function Partners(){
     const carouselRef = useRef(null);
 
   return (
-    <div className="relative">
+    <div className="relative flex justify-center">
         
     <Carousel
-      className="lg:w-[90%] w-screen m-5 carousel "
+      className="lg:w-[85%] w-screen m-5 carousel "
       opts={{
         align: "start",
         loop: true,
@@ -40,7 +44,7 @@ export default function Partners(){
       }}
       plugins={[
         AutoScroll({
-          speed: 10,
+          speed: 5,
           startDelay: 0,
           stopOnInteraction: false,
         }),

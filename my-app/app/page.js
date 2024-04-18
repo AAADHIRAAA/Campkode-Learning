@@ -1,13 +1,15 @@
 
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Login from './Login/page';
 import Link from 'next/link';
+import SheetComponent from '@/components/sheet';
 import ElasticCarousel from '@/components/Carousel';
 import { PointCard } from '@/components/PointCard';
 import { Mission } from '@/components/PointCard/mission';
+import Partners from '@/components/partners';
 // import InfiniteScroll from 'react-infinite-scroller';
 
 export default function Home() {
@@ -22,6 +24,32 @@ export default function Home() {
     }
   };
   const [data,setData]=useState(Array.from({length:20}))
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if the JWT token exists in the cookie
+    // const token = Cookie.get('jwt');
+    // console.log(Cookie);
+    const cookies = document.cookie.split(';').map(cookie => cookie.trim());
+const tokenCookie = cookies.find(cookie => cookie.startsWith('__clerk_db_jwt='));
+const token = tokenCookie ? tokenCookie.split('=')[1] : null;
+
+    if (token) {
+      // Set the Authorization header with the JWT token for subsequent requests
+      // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    // Set the expiration date of the cookie to a past time
+    document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    setIsLoggedIn(false);
+  };
+
 
   return (
     <>
@@ -46,6 +74,9 @@ export default function Home() {
       <div className="sticky bottom-0"><Footer /></div> 
      */}
      <nav class="nav-main">
+      {isLoggedIn && (<>
+        <SheetComponent/>
+      </>)}
         <img class="incubator-logo" src="" alt="CampKode"/>
         <div class="nav-btns">
             <div class="nav-slider"></div>
@@ -55,9 +86,18 @@ export default function Home() {
             <a class="nav-link" href="index.html#about-us">ABOUT US</a>
             <a class="nav-link" href="#footer">CONTACT</a>
             {/* <button className='px-3 py-2 rounded bg-blue-800 hover:bg-blue-600 text-white' > */}
-            <Link href={"/Login"} className='px-3 py-2 rounded bg-blue-800 hover:bg-blue-600 text-white'>Login</Link>
-            {/* </button> */}
+            {!isLoggedIn && (<>
+              <Link href={"/Login"} className='px-3 py-2 rounded bg-blue-800 hover:bg-blue-600 text-white'>Login</Link>
+          
             <Link href="/signUp" className='px-3 py-2 rounded bg-blue-800 hover:bg-blue-600 text-white'>Signup</Link>
+            </>)}
+            {isLoggedIn && (<>
+              <button onClick={handleLogout} className='px-3 py-2 rounded bg-blue-800 hover:bg-blue-600 text-white'>
+            Logout
+          </button>
+            </>)}
+         
+           
         </div>
         <button className="hamburger" onclick="menuToggle()">
             <span></span>
@@ -269,9 +309,9 @@ export default function Home() {
         </div>
       </div>
     </section>
-
-
-    
+<div className='flex justify-center items-center'>
+<Partners/>
+    </div>
   
         <section id="footer" class="footer">
         <img loading="lazy" src="9.png" alt="" class="footillus"/>
