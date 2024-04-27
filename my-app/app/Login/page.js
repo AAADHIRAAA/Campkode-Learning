@@ -2,10 +2,15 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {useRouter} from 'next/navigation';
-const Login = () => {
+import {setToken} from '@/utils/getUser';
+import {setUserId} from '@/utils/getUser';
+
+export default function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    let token=null;
+    let userId=null;
     // const history = useHistory();
     const router = useRouter();
     const handleSubmit = async (e) => {
@@ -22,6 +27,10 @@ const Login = () => {
             });
             const data = await response.json();
             if (response.status==200) {
+                token = data.data.token;
+                userId = data.data.userId;
+                setToken(token);
+                setUserId(userId);
                 alert('Login Successful!!');
                 router.push('/');
             } else if (response.status === 401) {
@@ -63,4 +72,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+

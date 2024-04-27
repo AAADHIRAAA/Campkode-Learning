@@ -5,11 +5,13 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Login from './Login/page';
 import Link from 'next/link';
+import axios from 'axios';
 import SheetComponent from '@/components/sheet';
 import ElasticCarousel from '@/components/Carousel';
 import { PointCard } from '@/components/PointCard';
 import { Mission } from '@/components/PointCard/mission';
 import Partners from '@/components/partners';
+import { getToken, getUserId } from '@/utils/getUser';
 // import InfiniteScroll from 'react-infinite-scroller';
 
 export default function Home() {
@@ -28,16 +30,13 @@ export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Check if the JWT token exists in the cookie
-    // const token = Cookie.get('jwt');
-    // console.log(Cookie);
-    const cookies = document.cookie.split(';').map(cookie => cookie.trim());
-const tokenCookie = cookies.find(cookie => cookie.startsWith('__clerk_db_jwt='));
-const token = tokenCookie ? tokenCookie.split('=')[1] : null;
+    
+    const token = getToken();
 
     if (token) {
       // Set the Authorization header with the JWT token for subsequent requests
-      // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+     
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
@@ -53,26 +52,7 @@ const token = tokenCookie ? tokenCookie.split('=')[1] : null;
 
   return (
     <>
-      {/* <div className="top-0"><Header onClick={handleHeaderClick} /></div>
-      <div className="h-screen flex flex-col justify-center items-center gap-4">
-        <div id="home" className='w-screen  h-screen'>
-          {section === "home" && <ElasticCarousel />}
-        </div>
-        <div id="about" className='w-screen  h-screen'>
-          {section === "about" || section==="home" && <h1>About Us</h1>}
-        </div>
-        <div id="partners" className='w-screen  h-screen'>
-          {section ==="partners" &&<ElasticCarousel />}
-        </div>
-        <div id="explore" className='w-screen  h-screen'>
-          {section==='explore' &&<h1>Explore</h1>}
-        </div>
-        <div id="reviews" className='w-screen  h-screen'>
-          {section==='reviews' &&<ElasticCarousel/>}
-        </div>
-      </div>
-      <div className="sticky bottom-0"><Footer /></div> 
-     */}
+     
      <nav class="nav-main">
       {isLoggedIn && (<>
         <SheetComponent/>

@@ -5,13 +5,31 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 
 export default function AddCourse(){
+  let c=null;
     const [message, setMessage]= useState('');
+    const [count,setCount] = useState(0);
     const [formData,setFormData] = useState({
         title:'',
         instructors:'',
         phone:'',
+        no_question:0
     });
+    const [questions, setQuestions] = useState([1]);
 
+    const handleQuestionChange = (e, index) => {
+      const { name, value } = e.target;
+      const updatedQuestions = [...questions];
+      updatedQuestions[index][name] = value;
+      setQuestions(updatedQuestions);
+    };
+  
+    useEffect(() => {
+      if(formData.no_question>0){
+        setQuestions(new Array(formData.no_question).fill({ question: '', options: [], correctAnswerIndex: 0, description: '' }));
+      }
+     
+    }, [formData.no_question]);
+  
     const handleSubmit=(e)=>{
 
     };
@@ -78,38 +96,20 @@ export default function AddCourse(){
   <label className="w-[200px] mb-3" htmlFor="questions">
     No of questions
   </label>
-  <input className="w-[800px] p-3" id="questions" />
+  <input className="w-[800px] p-3" id="questions" type='number' value={formData.no_question} onChange={(e) => setFormData({ ...formData, no_question: parseInt(e.target.value) })}/>
 </fieldset>
-<fieldset className="Fieldset">
-  <label className="Label" htmlFor="instructors">
-    Instructors
-  </label>
-  <input className="Input" id="instructors" />
-  </fieldset>
-  <fieldset className="Fieldset">
-  <label className="Label" htmlFor="category">
-      Category
-  </label>
-  <input className="Input" id="enrollmentstatus"/>
-  </fieldset>
-  <fieldset className="Fieldset">
-  <label className="Label" htmlFor="enrollmentstatus">
-      Enrollment Status
-  </label>
-  <input className="Input" id="duration"/>
-  </fieldset>
-  <fieldset className="Fieldset">
-  <label className="Label" htmlFor="duration">
-      Duration
-  </label>
-  <input className="Input" id="duration"/>
-  </fieldset>
-  <fieldset className="Fieldset">
-  <label className="Label" htmlFor="syllabus">
-      Syllabus
-  </label>
-  <input className="Input" id="syllabus"/>
-</fieldset>
+{questions.map((question, index) => (
+              <div key={index} className="mt-8">
+                <fieldset className="Fieldset">
+                  <label className="w-[200px] mb-3" htmlFor={`question${index}`}>
+                    Question {index + 1}
+                  </label>
+                  <input className="w-[800px] p-3" id={`question${index}`} name={`question${index}`} value={question.question} onChange={(e) => handleQuestionChange(e, index)} />
+                </fieldset>
+                {/* Additional fields for options, correct answer index, and description */}
+                {/* Modify these as per your requirement */}
+              </div>
+            ))}
 <div style={{ display: 'flex', marginTop: 20, justifyContent: 'flex-end' }}>
   <button className="Button green">Save changes</button>
 </div>
@@ -117,30 +117,6 @@ export default function AddCourse(){
 </Tabs>
 </div>
 
-        {/* <div className="signup-box bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold">Add a new Course</h1>
- 
-        <form className="mt-4 max-w-[80%] mx-auto" >
-        <label htmlFor="title" className="block mt-2">Course Title</label>
-          <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" placeholder="Enter course name" required />
-           <label htmlFor="instructors" className="block mt-2">Instructors</label>
-           <input type="text" id="title" name="instructors" value={formData.instructors} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" placeholder="Enter instructors name" required />
-          <label htmlFor="duration" className="block mt-2">Category</label>
-          <input type="text" id="duration" name="duration" value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" placeholder="Enter no of weeks" required />
-          <label htmlFor="duration" className="block mt-2">Enrollment Status</label>
-          <input type="text" id="duration" name="duration" value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" placeholder="Enter no of weeks" required />
-          <label htmlFor="duration" className="block mt-2">Syllabus</label>
-          <input type="file" id="syllabus" name="duration" value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" placeholder="Enter no of weeks" required />
-          <label htmlFor="duration" className="block mt-2">Duration</label>
-          <input type="number" id="duration" name="duration" value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" placeholder="Enter no of weeks" required />
-          <label htmlFor="duration" className="block mt-2">Duration</label>
-          <input type="text" id="duration" name="duration" value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" placeholder="Enter no of weeks" required />
-          <label htmlFor="duration" className="block mt-2">Duration</label>
-          <input type="text" id="duration" name="duration" value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" placeholder="Enter no of weeks" required />
-          <input type="submit" value="Submit" className="w-full mt-4 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 cursor-pointer" />
-        </form>
-        <p className="mt-4 text-sm">{message}</p> */}
-      {/* </div> */}
         </>
     )
 }
