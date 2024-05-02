@@ -7,9 +7,9 @@ import { useRouter } from 'next/navigation';
 import { useFormContext } from '@/components/formContext';
 import Link from 'next/link';
 
-export default function personalDetails() {
+export default function personalDetails(req,res) {
     const router = useRouter();
-
+    const courseId= '661e54360e682544df88436f' || req.params.courseId ;
 
     const[states,setStates]=useState([]);
     const[cities,setCities] = useState([]);
@@ -41,6 +41,7 @@ export default function personalDetails() {
                 ...formData.personalDetails,
                 [e.target.name]: e.target.value,
             },
+            courseId:courseId,
         });
         console.log(formData);
       };

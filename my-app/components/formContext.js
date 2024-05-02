@@ -40,6 +40,7 @@ export const FormProvider = ({ children }) => {
         payment: {
             paymentMethod: '',
         },
+        courseId:''
     });
 
     return (

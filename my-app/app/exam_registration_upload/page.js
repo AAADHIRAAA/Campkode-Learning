@@ -137,7 +137,7 @@ export default function FileUploads(){
                   {errors.idProof && <p className="text-red-500">{errors.idProof}</p>}
                 {/* </div> */}
                     <div className='flex flex-row'>
-                     <button className="rounded-xl bg-blue-300 hover:bg-blue-400 px-2 py-2 flex mr-auto"><Link href="/exam_registration">Back</Link></button>
+                     <button className="rounded-xl bg-blue-300 hover:bg-blue-400 px-2 py-2 flex mr-auto"><Link href={`/exam_registration/${formData.courseId}`}>Back</Link></button>
                     <button type="submit" className="rounded-xl bg-blue-300 hover:bg-blue-400 px-2 py-2 flex ml-auto" >Continue</button>
                      </div>
                     

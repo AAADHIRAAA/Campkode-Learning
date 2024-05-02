@@ -11,6 +11,7 @@ export const getToken = () => {
 
 export const setUserId = (newUserId) =>{
     userId=newUserId;
+    console.log(userId);
 }
 export const getUserId = () =>{
     return userId;

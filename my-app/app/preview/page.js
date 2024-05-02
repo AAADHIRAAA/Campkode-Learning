@@ -5,7 +5,25 @@ import { useFormContext } from '@/components/formContext';
 
 const PreviewPage = () => {
   const { formData } = useFormContext();
-
+  const toggleFile = (fileType) => {
+    const file = formData.files[fileType];
+    const fileName = formData.fileNames[fileType];
+    const img = document.getElementById(fileType + 'Img');
+  
+    if (file) {
+      if (img.style.display === 'none' || img.style.display === '') {
+        img.src = URL.createObjectURL(file);
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+      }
+    } else {
+      img.style.display = 'none'; // Hide the image if no file is uploaded
+    }
+  };
+  
+  
+  
   return (
     <div className=" w-[600px] h-full mx-auto mt-5 bg-blue-200 p-4 rounded-2xl shadow-2xl mb-5">
       <h2 className="text-center mt-4 font-bold text-red-700 mb-5">Preview Page</h2>
@@ -29,9 +47,12 @@ const PreviewPage = () => {
         <div className="form-section p-4">
           <h3 className="text-center font-bold ">File Uploads:</h3>
           <div className="file-upload">
-            <p>Photo: {formData.files.photo ? formData.fileNames.photo : 'Not Uploaded'}</p>
+            <p>Photo:
+           
+              {formData.files.photo ? formData.fileNames.photo : 'Not Uploaded'}</p>
+      
             <p>Signature: {formData.files.signature ? formData.fileNames.signature : 'Not Uploaded'}</p>
-            <p>ID Proof: {formData.files.idProof ?formData.fileNames.id : 'Not Uploaded'}</p>
+            <p>ID Proof: {formData.files.idProof ?formData.fileNames.idProof : 'Not Uploaded'}</p>
           </div>
         </div>
 
